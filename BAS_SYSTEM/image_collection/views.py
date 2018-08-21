@@ -27,8 +27,7 @@ def uploadImg(request): # 图片上传函数
                                      city_name = city_name)
             img.save()
             print(os.getcwd())
-            # destination = open(os.getcwd()+'\\img\\'+ tag +'.jpg', 'wb+')
-            destination = open(os.path.join(MEDIA_ROOT, tag+'.jpg').replace('\\', '/'), 'wb+')
+            destination = open(os.getcwd()+'\\img\\'+ tag +'.jpg', 'wb+')
             for chunk in img_url.chunks():
                 destination.write(chunk)
             destination.close()
