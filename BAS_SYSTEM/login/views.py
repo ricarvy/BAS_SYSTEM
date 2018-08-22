@@ -17,8 +17,8 @@ def login(request):
         username = request.POST.get('form-username')
         password = request.POST.get('form-password')
         userInfo = UserInfo.objects.filter(username=username)
-        print(list(City.objects.all().values()))
-        if len(userInfo) != 0:
+        print(list(userInfo.values())[0]['password'])
+        if len(userInfo) != 0 and list(userInfo.values())[0]['password'] == password:
             logined = True
             context['username'] = username
             return render(request, 'imgUpload.html', {'username': username,

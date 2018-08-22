@@ -1,48 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>图片上传</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 </head>
+
 <body>
-    <form id="form" action="uploadImg" method="post" enctype="multipart/form-data", onsubmit="return checkForm()">
-        {% csrf_token %}
-        <label for="company_name">请输入快递公司名 : </label>
-        <input id="company_name" name="company_name" type="company_name" list="company" />
-        <datalist id="company">
-            {% for delivery in dcyDelivery %}
-                <option value="{{ delivery.delivery_name }}">
-            {% endfor %}
-        </datalist>
+    <div class="container">
+        <nav class="navbar navbar-expand-sm bg-light">
+            <h1>图片上传</h1>
+        </nav>
 
-        <br>
+        <div class="well">
+            <form id="form" action="uploadImg" method="post" enctype="multipart/form-data", onsubmit="return checkForm()">
+        
+                <div class="form-group">
+                    <label for="company_name">请输入快递公司名 : </label>
+                    <select class="form-control" id="company_name" list="company">
+                        {% for delivery in dcyDelivery %}
+                            <option value="{{ delivery.delivery_name }}">{{ delivery.delivery_name }}</option>
+                        {% endfor %}
+                    </select>
+                    
+                    <label for="province_name">请输入省名 : </label>
+                    <select class="form-control" id="province_name" list="province" onchange="getCities(this.value, {{ provincial_list }}, {{ city_list }})">
+                        {% for province in provincial %}
+                            <option value="{{ province.provincial}}">{{ province.provincial}}</option>
+                        {% endfor %}
+                    </select>
 
-        <label for="province_name">请输入省名 : </label>
-        <input id="province_name" name="province_name" type="province_name" list="province" onchange="getCities(this.value, {{ provincial_list }}, {{ city_list }})"/>
-        <datalist id="province">
-            {% for province in provincial %}
-                <option value="{{ province.provincial}}">
-            {% endfor %}
-        </datalist>
+                    <label for="city">请输入市名 : </label>
+                    <select class="form-control" id="city" list="city">
+                    </select>
 
-        <br>
+                    <!-- <label for="img" class="col-md-4">请选择图片 :
+                        <input class="btn btn-default col-md-8" type="file" id="img">
+                    </label>
+                    <input class="btn btn-primary" type="submit" value="上传" onclick="onSubmit()"/> -->
+                </div>
 
-        <label for="city_name">请输入市名 : </label>
-        <input id="city_name" name="city_name" type="city_name" list="city" />
-        <datalist id="city">
+                <!-- <div class="form-group">
+                    <label for="province_name" class="col-md-4">请输入省名 : </label>
+                    <select class="form-control col-md-8" id="province_name" list="province" onchange="getCities(this.value, {{ provincial_list }}, {{ city_list }})">
+                        {% for province in provincial %}
+                            <option value="{{ province.provincial}}">{{ province.provincial}}</option>
+                        {% endfor %}
+                    </select>
+                </div> -->
 
-        </datalist>
+                <!-- <div class="form-group">
+                    <label for="city" class="col-md-4">请输入市名 : </label>
+                    <select class="form-control col-md-8" id="city" list="city">
+                    </select>
+                </div> -->
 
-        <br>
-
-        <label for="img">请选择图片 : </label>
-        <input type="file" name="img"><br>
-        <input type="submit" value="上传" onclick="onSubmit()"/>
-    </form>
-
+                <div class="form-group row">
+                    <label for="img" class="col-md-12">请选择图片 :
+                        <input class="btn btn-default" type="file" id="img">
+                        <br>
+                        <input class="btn btn-primary" type="submit" value="上传" onclick="onSubmit()"/>
+                    </label>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../static/js/select2.js"></script>
+<script type="text/javascript" src="../static/js/pinyin.js"></script>
+
 <script type="text/javascript">
+    $(document).ready(function() {
+        $('#company_name').select2();
+    });
+
     function onSubmit() {
         alert("上传成功！")
         var company_name = $("company_name").val();
@@ -67,21 +105,20 @@
             }
         }
 
-        curr_city = new Array()
-        data_list = document.getElementById('city')
-        child_list = data_list.childNodes
-        for(var i=0;i<child_list.length;i++){
-            data_list.removeChild(child_list[i])
+        data_list = document.getElementById('city');
+        if (data_list.length > 0){
+            data_list.innerHTML = "";
         }
-
+        
         for(var i=0;i<city_list.length;i++){
             if(city_list[i]['pid_id'] == curr_pid){
-                option = document.createElement('OPTION')
-                option.text = city_list[i]['city']
-                option.value = city_list[i]['city']
-                data_list.appendChild(option)
+                option = document.createElement('OPTION');
+                option.text = city_list[i]['city'];
+                option.value = city_list[i]['city'];
+                data_list.appendChild(option);
             }
         }
     }
 </script>
+
 </html>
