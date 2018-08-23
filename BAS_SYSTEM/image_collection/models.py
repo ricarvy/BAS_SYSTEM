@@ -151,6 +151,14 @@ class ImageCollectionImg(models.Model):
         db_table = 'image_collection_img'
 
 
+class Permission(models.Model):
+    permission_name = models.CharField(max_length=45, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'permission'
+
+
 class Provincial(models.Model):
     pid = models.IntegerField(primary_key=True)
     provincial = models.CharField(db_column='Provincial', max_length=50, blank=True, null=True)  # Field name made lowercase.
@@ -163,7 +171,7 @@ class Provincial(models.Model):
 class UserInfo(models.Model):
     username = models.CharField(max_length=45)
     password = models.CharField(max_length=45)
-    timestamp = models.DateTimeField(blank=True, null=True)
+    permission = models.ForeignKey(Permission, models.DO_NOTHING, db_column='permission')
 
     class Meta:
         managed = False
