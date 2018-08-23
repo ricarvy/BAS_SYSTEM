@@ -16,8 +16,8 @@ def login(request):
     if request.method == 'POST':
         username = request.POST.get('form-username')
         password = request.POST.get('form-password')
+        request.session['username'] = username
         userInfo = UserInfo.objects.filter(username=username)
-        print(list(userInfo.values())[0]['password'])
         if len(userInfo) != 0 and list(userInfo.values())[0]['password'] == password:
             logined = True
             context['username'] = username

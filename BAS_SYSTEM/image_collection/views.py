@@ -18,13 +18,16 @@ def uploadImg(request): # 图片上传函数
         province_name = request.POST.get('province_name')
         city_name = request.POST.get('city_name')
         img_url = request.FILES.get('img')
+        print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())))
         # 生成时间戳
         tag = str(round(time.time() * 1000)) + str(random.randint(0, 100000000))
         if img_url is not None:
             img = ImageCollectionImg(img_url = tag + '.jpg',
                                      company_name = company_name,
                                      province_name = province_name,
-                                     city_name = city_name)
+                                     city_name = city_name,
+                                     upload_username = request.session.get('username','None'),
+                                     timestamp = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())))
             img.save()
             # destination = open(os.getcwd()+'\\img\\'+ tag +'.jpg', 'wb+')
             destination = open(os.path.join(MEDIA_ROOT, tag+'.jpg').replace('\\', '/'), 'wb+')
