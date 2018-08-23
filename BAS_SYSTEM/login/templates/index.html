@@ -51,8 +51,8 @@
                         <div class="col-sm-6 col-sm-offset-3 form-box">
                         	<div class="form-top">
                         		<div class="form-top-left">
-                        			<h3>Login to our site</h3>
-                            		<p>Enter your username and password to log on:</p>
+                        			<h3>BAS 图片收集系统</h3>
+                            		<p>请输入您的工号和密码:</p>
                         		</div>
                         		<div class="form-top-right">
                         			<i class="fa fa-key"></i>
@@ -63,13 +63,13 @@
                                 <form action="login" method="post">
                                     <div class="form-group">
                                         <label class="sr-only" for="form-username">Username</label>
-                                        <input type="text" name="form-username" placeholder="Username..." class="form-username form-control" id="form-username">
+                                        <input type="text" name="form-username" placeholder="工号..." class="form-username form-control" id="form-username">
                                     </div>
                                     <div>
                                         <label class="sr-only" for="form-password">Password</label>
-                                        <input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password">
+                                        <input type="password" name="form-password" placeholder="密码..." class="form-password form-control" id="form-password">
                                     </div>
-                                    <button type="submit" class="btn">Sign in!</button>
+                                    <button type="submit" class="btn">登录</button>
                                     <div>
                                         {% if failed %}
                                             <input type="text" name="form-password" value="User not found" id="form-password" readonly="true">
