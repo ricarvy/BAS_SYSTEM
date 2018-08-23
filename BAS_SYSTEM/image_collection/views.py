@@ -18,7 +18,6 @@ def uploadImg(request): # 图片上传函数
         province_name = request.POST.get('province_name')
         city_name = request.POST.get('city_name')
         img_url = request.FILES.get('img')
-        print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())))
         # 生成时间戳
         tag = str(round(time.time() * 1000)) + str(random.randint(0, 100000000))
         if img_url is not None:
@@ -35,6 +34,7 @@ def uploadImg(request): # 图片上传函数
                 destination.write(chunk)
             destination.close()
 
-    return render(request, 'imgUpload.html', {'provincial': Provincial.objects.all(),
+    return render(request, 'imgUpload.html', {'permission': request.session.get('permission'),
+                                              'provincial': Provincial.objects.all(),
                                               'city': City.objects.all(),
                                               'dcyDelivery': DcyDelivery.objects.all()})

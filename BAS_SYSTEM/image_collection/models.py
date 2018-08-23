@@ -152,6 +152,7 @@ class ImageCollectionImg(models.Model):
 
 
 class Permission(models.Model):
+    pid = models.IntegerField()
     permission_name = models.CharField(max_length=45, blank=True, null=True)
 
     class Meta:

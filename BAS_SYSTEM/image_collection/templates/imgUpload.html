@@ -38,6 +38,9 @@
         <label for="img">请选择图片 : </label>
         <input type="file" name="img"><br>
         <input type="submit" value="上传" onclick="onSubmit()"/>
+        {% if permission == 1 %}
+            <input type="submit" value="下载全部图片"/>
+        {% endif %}
     </form>
 
 </body>
@@ -45,17 +48,17 @@
 <script type="text/javascript">
     function onSubmit() {
         alert("上传成功！")
-        var company_name = $("company_name").val();
-        var formData = new FormData();
-        formData.append('company_name', company_name)
-        $.ajax({
-            url: "uploadImg",
-            type: "POST",
-            data: formData,
-            success:function (data) {
-                alert('success!')
-            }
-        })
+        {#var company_name = $("company_name").val();#}
+        {#var formData = new FormData();#}
+        {#formData.append('company_name', company_name)#}
+        {#$.ajax({#}
+        {#    url: "uploadImg",#}
+        {#    type: "POST",#}
+        {#    data: formData,#}
+        {#    success:function (data) {#}
+        {#        alert('success!')#}
+        {#    }#}
+        {#})#}
     }
 
     function getCities(currProvince, provincial_list, city_list) {
