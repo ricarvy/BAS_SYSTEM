@@ -40,7 +40,11 @@ def uploadImg(request): # 图片上传函数
                                               'dcyDelivery': DcyDelivery.objects.all()})
 @csrf_exempt
 def showImg(request):
+    page_account = 0
+    image_num_per_page = 1
     path = BASE_DIR + '/static/media'
     imageList = os.listdir(path)
     print(os.listdir(path))
-    return render(request, 'img_detail.html',{'imageList':imageList})
+    return render(request, 'img_detail.html',{'imageList':imageList,
+                                              'page_account': page_account,
+                                              'image_num_per_page':image_num_per_page})
