@@ -7,8 +7,8 @@ import os
 import time
 import random
 
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/') # media即为图片上传的根路径
+BASE_DIR = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static\\media').replace('\\', '/') # media即为图片上传的根路径
 MEDIA_URL = '/media/'
 
 @csrf_exempt
@@ -38,3 +38,9 @@ def uploadImg(request): # 图片上传函数
                                               'provincial': Provincial.objects.all(),
                                               'city': City.objects.all(),
                                               'dcyDelivery': DcyDelivery.objects.all()})
+@csrf_exempt
+def showImg(request):
+    path = BASE_DIR + '/static/media'
+    imageList = os.listdir(path)
+    print(os.listdir(path))
+    return render(request, 'img_detail.html',{'imageList':imageList})
