@@ -46,8 +46,8 @@
                         请输入省名：</label>
                 </div>
                 <div class="ctrl">
-                    <input type="text" id="province_name" name="province_name" type="province_name" list="province"
-                           onchange="getCities(this.value,{{ provincial_list }},{{ city_list }})" placeholder="例如：江苏省">
+                    <input type="text" id="province_name" name="province_name" type="province_name" list="province" onchange="getCities(this.value, {{ provincial_list }}, {{ city_list }})"
+                           data-required="true" data-validation="text" data-msg="Invalid E-Mail" placeholder="例如：江苏省">
                     <datalist id="province">
                         {% for province in provincial %}
                             <option value="{{ province.provincial}}">
@@ -75,25 +75,18 @@
                     <textarea id="message" name="message" rows="6" cols="10"></textarea>
                 </div>
             </div>
-            <div class="row clearfix">
-                <div class="lbl">
-                    <label for="city">
-                        请选择图片：</label>
-                </div>
-                <div class="ctrl">
-                    <input type="file" name="img"><br>
-                </div>
-            </div>
             <div class="row  clearfix">
                 <div class="span10 offset2">
-                    <input type="submit" class="submit" value="上传图片" onclick="onSubmit()">
-                    {% if permission == 1 %}
-                        <input type="submit" class="submit" value="下载所有图片" onclick="onSubmit()">
-                    {% endif %}
+                    <input type="submit" class="submit" value="上传图片">
                 </div>
             </div>
-
             </form>
+            <div id="success">
+                Your E-Mail has been sent successfully!</div>
+            <div id="error">
+                Unable to send e-mail at the moment, please try later.</div>
+            <div id="validation">
+            </div>
         </div>
     </section>
 </body>
@@ -124,10 +117,6 @@
                 data_list.appendChild(option)
             }
         }
-    }
-
-    function onSubmit(){
-        alert('上传成功！')
     }
 </script>
 </html>
